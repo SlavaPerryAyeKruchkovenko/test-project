@@ -13,7 +13,7 @@ $(document).ready(function (){
                     properties.set(property,[value[property]])
                 }
             }
-        }
+        }// получаем все поля без повтора
         for(key of properties.keys()){
             $("#keys").append($('<li>', {
                 text: key,
@@ -36,7 +36,7 @@ $(document).ready(function (){
                     changeResult()
                 }
             }))
-        }
+        }// превращаем поля в html елементы
         function changeResult(){
             let results = new Map()
             for(let curProp of currentProperties){
@@ -52,15 +52,14 @@ $(document).ready(function (){
                         }
                     }
                 }
-            }
+            }// ищем элементы с выбранными полями
             $("#results").empty();
 
             if(results.size === 0){
                 $("#results").append($('<li>', {
                     text: "Такого обьекта нету",
-                }))
+                }))// провеярем на пустоту
             }else{
-
                 const max = Math.max.apply(null, [...results.values()])
                 results = new Map([...results].filter(([k, v]) => v === max))
 
@@ -69,9 +68,9 @@ $(document).ready(function (){
                     if(results.size > 1){
                         for(let val of currentProperties){
                             console.log(values.get(result)[val])
-                            subText +=values.get(result)[val]
+                            subText +=values.get(result)[val] + " "
                         }
-                    }
+                    }// выводим значения если у нас несколько элементов имеют данные поля
                     $("#results").append($('<li>', {
                         text: result+subText,
                         id: result,
